@@ -1,0 +1,19 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block category %}
+  <br/>
+  <div class="row" style="width:100%">
+    {%for product in products %}
+    <div class="col-lg-4">
+      <img class="thumbnail" src="{{product.ImageURL}}">
+      <div class="box-element product">
+        <h6><strong>{{product.name}}</strong></h6>
+        <hr>
+        <button data-product={{product.id}} data-action= "add" class="btn btn-outline-secondary add-btn update-cart">Thêm vào giỏ hàng</button>
+        <a class="btn btn-outline-success" href"#">Xem</a>
+        <h3 style="display: inline-block; float: right"><strong>{{product.price}}VND</strong></h3>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock category %}

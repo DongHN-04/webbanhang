@@ -1,0 +1,29 @@
+.footer span {
+    color: rgb(136, 138, 144);
+    margin-top: 5px;
+}
+.footer p {
+    font-size: larger;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+/* Col */
+.col a {
+    margin-top: 5px;
+    width: fit-content;
+    display: inline-block;
+    color: rgb(140, 140, 149);
+}
+.col a:hover {
+    text-decoration: underline;
+}
+/* Col5 */
+.store a {
+    margin: 0;
+}
+
+/* Row */
+.hotline {
+    color: rgb(23, 123, 230) !important;
+}
