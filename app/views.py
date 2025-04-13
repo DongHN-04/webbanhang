@@ -13,7 +13,7 @@ def order_success(request):
         customer = request.user
         user_not_login = 'hidden'
         user_login = 'show'
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        order = Order.objects.filter(customer=customer, complete=True).order_by('-date_order').first()
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
@@ -22,14 +22,11 @@ def order_success(request):
         items=[]
         order={'get_cart_items':0,'get_cart_total':0}
         cartItems = order['get_cart_items']
-    # Add any additional context if needed
-    context = {'items':items,'order':order,'cartItems':cartItems,
-        'user_not_login': user_not_login,
-        'user_login': user_login
-    }    
+    categories = Category.objects.filter(is_sub=False)
+    context = {'categories': categories, 'items':items,'order':order, 'cartItems':cartItems, 'user_not_login': user_not_login, 'user_login': user_login}    
     return render(request, 'app/order_success.html', context)
 
-def detail(request):
+def detail(request):    
     if request.user.is_authenticated:
         customer = request.user
         order, created = Order.objects.get_or_create(customer = customer, complete=False)
@@ -71,7 +68,8 @@ def search(request):
         order = {'get_cart_items':0, 'get_cart_total':0}
         cartItems = order["get_cart_items"]
     products = Product.objects.all()
-    return render(request,'app/search.html', {"searched":searched, "keys":keys, 'products':products, 'cartItems':cartItems})
+    categories = Category.objects.filter(is_sub=False)
+    return render(request,'app/search.html', {'categories': categories,"searched":searched, "keys":keys, 'products':products, 'cartItems':cartItems})
 
 def register(request):
     form = CreateUserForm()
@@ -79,6 +77,7 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Đăng ký thành công! Bạn có thể đăng nhập.')
             return redirect('login')
     categories = Category.objects.filter(is_sub=False)
     context = {'categories': categories, 'form': form}
@@ -91,11 +90,6 @@ def loginPage(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        # if user is not None:
-        #     login(request,user)
-        #     return redirect('home')
-        # else:
-        #     messages.info(request, 'User or password not correct!')
         if user is not None:
             # Ngăn admin đăng nhập vào trang khách hàng
             if user.is_staff or user.is_superuser:
@@ -153,6 +147,7 @@ def cart(request):
     return render(request, 'app/cart.html', context)
 
 def checkout(request):
+    categories = Category.objects.filter(is_sub=False)
     if request.user.is_authenticated:
         customer = request.user
         order, created = Order.objects.get_or_create(customer = customer, complete=False)
@@ -182,17 +177,13 @@ def checkout(request):
                 mobile=mobile,
             )
 
-            return render(request, 'app/order_success.html', {
-                'order': order,
-                'items': items
-            })
+            return redirect('order_success')
     else:
         items = []
         order = {'get_cart_items':0, 'get_cart_total':0}
         cartItems = order["get_cart_items"]
         user_not_login = "show"
         user_login = "hidden"
-    categories = Category.objects.filter(is_sub=False)
     context = {'categories': categories, 'items': items, 'order': order, 'cartItems':cartItems,'user_not_login':user_not_login, 'user_login':user_login}
     return render(request, 'app/checkout.html', context)
 

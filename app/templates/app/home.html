@@ -1,6 +1,37 @@
 {% extends "app/base.html" %}
 {% load static %}
 {% block banner_slider %}
+{% comment %} <div class="sidebar" style="padding: 30px; border: 2px solid #ccc; border-radius: 10px;margin-left: 30px;margin-top:30px; margin-right: auto;width:300px;">
+  <div class="category-list">
+    <h4 style="text-align: center;">Danh mục sản phẩm</h4>
+    <ul style="list-style: none; padding: 0;">
+      <li style="display: flex; align-items: center; justify-content: center; margin: 7px 0; border: 1px solid #ddd; border-radius: 8px; padding: 10px;">
+        <img src="{% static 'app/icons/ip.png' %}" alt="icon" style="width: 25px; height:25px; margin-right: 10px;">
+        <a href="#">Iphone</a>
+      </li>
+      <li style="display: flex; align-items: center; justify-content: center; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; padding: 10px;">
+        <img src="{% static 'app/icons/samsung.png' %}" alt="icon" style="width: 25px; height: 25px; margin-right: 10px;">
+        <a href="#">Samsung</a>
+      </li>
+      <li style="display: flex; align-items: center; justify-content: center; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; padding: 10px;">
+        <img src="{% static 'app/icons/xiaomi.png' %}" alt="icon" style="width: 25px; height: 25px; margin-right: 10px;">
+        <a href="#">Xiaomi</a>
+      </li>
+      <li style="display: flex; align-items: center; justify-content: center; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; padding: 10px;">
+        <img src="{% static 'app/icons/nokia.png' %}" alt="icon" style="width: 25px; height: 25px; margin-right: 10px;">
+        <a href="#">Nokia</a>
+      </li>
+      <li style="display: flex; align-items: center; justify-content: center; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; padding: 10px;">
+        <img src="{% static 'app/icons/oppo.png' %}" alt="icon" style="width: 25px; height: 25px; margin-right: 10px;">
+        <a href="#">OPPO</a>
+      </li>
+      <li style="display: flex; align-items: center; justify-content: center; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; padding: 10px;">
+        <img src="{% static 'app/icons/vivo.png' %}" alt="icon" style="width: 25px; height: 25px; margin-right: 10px;">
+        <a href="#">Vivo</a>
+      </li>        
+    </ul>
+  </div>
+</div>
 <div id="carouselExampleRide" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
     <div class="carousel-inner">
       <div class="carousel-item active">
@@ -21,7 +52,68 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
+  </div> {% endcomment %}
+  <div class="container mt-4">
+    <div class="row">
+        <!-- Sidebar - Danh mục sản phẩm -->
+        <div class="col-md-3">
+          <div class="bg-white rounded-3 shadow-sm p-3 h-100">
+              <div class="list-group mt-1">
+                  <a href="#" class="list-group-item list-group-item-action d-flex align-items-center justify-content-center rounded-3 mb-2 bg-light py-2 px-3">
+                      <img src="{% static 'app/icons/ip.png' %}" alt="iPhone" class="me-1" width="38" height="38">
+                      iPhone
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action d-flex align-items-center justify-content-center rounded-3 mb-2 bg-light py-2 px-3">
+                      <img src="{% static 'app/icons/samsung.png' %}" alt="Samsung" class="me-2" width="38" height="38">
+                      Samsung
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action d-flex align-items-center justify-content-center rounded-3 mb-2 bg-light py-2 px-3">
+                      <img src="{% static 'app/icons/xiaomi.png' %}" alt="Xiaomi" class="me-2" width="38" height="38">
+                      Xiaomi
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action d-flex align-items-center justify-content-center rounded-3 mb-2 bg-light py-2 px-3">
+                      <img src="{% static 'app/icons/nokia.png' %}" alt="Nokia" class="me-2" width="38" height="38">
+                      Nokia
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action d-flex align-items-center justify-content-center rounded-3 mb-2 bg-light py-2 px-3">
+                      <img src="{% static 'app/icons/oppo.png' %}" alt="OPPO" class="me-2" width="38" height="38">
+                      OPPO
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action d-flex align-items-center justify-content-center rounded-3 mb-2 bg-light py-2 px-3">
+                      <img src="{% static 'app/icons/vivo.png' %}" alt="Vivo" class="me-2" width="38" height="38">
+                      Vivo
+                  </a>
+              </div>
+          </div>
+        </div>
+
+        <!-- Carousel - Slider -->
+        <div class="col-md-9">
+          <div id="carouselExampleRide" class="carousel slide shadow rounded-3 h-100" data-bs-ride="carousel" data-bs-interval="2000">
+              <div class="carousel-inner rounded-3">
+                  <div class="carousel-item active">
+                      <img src="{% static 'app/images/banner/slider0.jpg' %}" class="d-block w-100 h-100 rounded-3" alt="Banner 1" style="object-fit: cover;">
+                  </div>
+                  <div class="carousel-item">
+                      <img src="{% static 'app/images/banner/slider1.jpg' %}" class="d-block w-100 h-100 rounded-3" alt="Banner 2" style="object-fit: cover;">
+                  </div>
+                  <div class="carousel-item">
+                      <img src="{% static 'app/images/banner/slider2.jpg' %}" class="d-block w-100 h-100 rounded-3" alt="Banner 3" style="object-fit: cover;">
+                  </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
+                  <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+              </button>
+          </div>
+        </div>
+    </div>
   </div>
+
 {% endblock banner_slider %}
 {% block main-content %}
 <div class="row" style="width:100%">

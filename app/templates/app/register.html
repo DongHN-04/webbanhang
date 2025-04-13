@@ -1,87 +1,113 @@
 {% extends "app/base.html" %}
 {% load static %}
 {% block register %}
-  <section class="vh-100" style="background-color: #eee;">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-lg-12 col-xl-11">
-          <div class="card text-black" style="border-radius: 25px;">
-            <div class="card-body p-md-5">
-              <div class="row justify-content-center">
-                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-  
-                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-  
-                  <form class="mx-1 mx-md-4" method="POST" action="">
-                    {% csrf_token %}
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <label class="form-label" for="form3Example1c">User Name</label>
-                        {{form.username}}
-                      </div>
-                    </div>
-  
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <label class="form-label" for="form3Example3c">Your Email</label>
-                        {{form.email}}
-                      </div>
-                    </div>
-
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <label class="form-label" for="form3Example1c">First Name</label>
-                        {{form.first_name}}
-                      </div>
-                    </div>
-
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <label class="form-label" for="form3Example1c">Last Name</label>
-                        {{form.last_name}}
-                      </div>
-                    </div>
-  
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <label class="form-label" for="form3Example4c">Password</label>
-                        {{form.password1}}
-                      </div>
-                    </div>
-  
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <label class="form-label" for="form3Example4cd">Repeat password</label>
-                        {{form.password2}}
-                      </div>
-                    </div>
-  
-                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg">Register</button>
-                    </div>
-                    <p class="text-center h6 fw-bold mb-5 mx-1 mx-md-4 mt-4">You have a acount?<a href="{% url "login" %}">Login</a></p>
-                  </form>
-  
-                </div>
-                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-  
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                    class="img-fluid" alt="Sample image">
-  
-                </div>
+  <section class="py-5" style="background-color: #f8f9fa;">
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-lg-10">
+          <div class="card shadow border-0 rounded-4">
+            <div class="row g-0">
+              
+              <!-- Ảnh minh họa -->
+              <div class="col-md-6 d-none d-md-block">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  alt="Register" class="img-fluid h-100 rounded-start-4" style="object-fit: cover;">
               </div>
+  
+              <!-- Form đăng ký -->
+              <div class="col-md-6 p-5">
+                <h3 class="fw-bold text-center mb-4">Đăng ký tài khoản</h3>
+  
+                <form method="POST" action="">
+                  {% csrf_token %}
+                
+                  <!-- Tên đăng nhập -->
+                  <div class="form-floating mb-3">
+                    {{ form.username }}
+                    <label for="{{ form.username.id_for_label }}">Tên đăng nhập</label>
+                    {% if form.username.errors %}
+                      {% for error in form.username.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                
+                  <!-- Email -->
+                  <div class="form-floating mb-3">
+                    {{ form.email }}
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {% if form.email.errors %}
+                      {% for error in form.email.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                
+                  <!-- Họ -->
+                  <div class="form-floating mb-3">
+                    {{ form.first_name }}
+                    <label for="{{ form.first_name.id_for_label }}">Họ</label>
+                    {% if form.first_name.errors %}
+                      {% for error in form.first_name.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                
+                  <!-- Tên -->
+                  <div class="form-floating mb-3">
+                    {{ form.last_name }}
+                    <label for="{{ form.last_name.id_for_label }}">Tên</label>
+                    {% if form.last_name.errors %}
+                      {% for error in form.last_name.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                
+                  <!-- Mật khẩu -->
+                  <div class="form-floating mb-3">
+                    {{ form.password1 }}
+                    <label for="{{ form.password1.id_for_label }}">Mật khẩu</label>
+                    {% if form.password1.errors %}
+                      {% for error in form.password1.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                
+                  <!-- Nhập lại mật khẩu -->
+                  <div class="form-floating mb-4">
+                    {{ form.password2 }}
+                    <label for="{{ form.password2.id_for_label }}">Nhập lại mật khẩu</label>
+                    {% if form.password2.errors %}
+                      {% for error in form.password2.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                
+                  <!-- Nút đăng ký -->
+                  <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm">
+                      <i class="bi bi-person-plus-fill me-2"></i> Đăng ký tài khoản
+                    </button>
+                  </div>
+                
+                  <!-- Link đăng nhập -->
+                  <p class="text-center">Đã có tài khoản?
+                    <a href="{% url 'login' %}" class="fw-bold text-decoration-none">Đăng nhập</a>
+                  </p>
+                </form>                
+              </div>
+              
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+  
 {% endblock register %}
 
 
