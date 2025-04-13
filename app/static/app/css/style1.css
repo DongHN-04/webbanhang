@@ -1,0 +1,25 @@
+.search-button {
+    background-color: rgba(255, 255, 255, 0.2); /* Màu mờ lúc chưa hover */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 0; /* giữ bo viền đều khối */
+}
+
+.search-button:hover {
+    background-color: #d6d6d6; /* Màu nền khi hover */
+    transform: scale(1.05); /* Nhẹ nhàng phóng to khi hover */
+}
+
+.search-icon {
+    transition: stroke 0.3s ease;
+    stroke: #ffffff; /* Màu trắng mặc định */
+}
+
+.search-button:hover .search-icon {
+    stroke: #212121; /* Đổi sang màu tối khi hover */
+}
+
+input:focus {
+    box-shadow: none !important;
+    outline: none !important;
+} 
+

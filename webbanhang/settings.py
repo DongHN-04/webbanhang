@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'app',
 ]
 
@@ -78,9 +79,9 @@ WSGI_APPLICATION = 'webbanhang.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'python_web',  
+        'NAME': 'python',  
         'USER': 'root',
-        'PASSWORD': '070704', 
+        'PASSWORD': '', 
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -109,7 +110,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+
+LANGUAGE_CODE = 'vi'
 
 TIME_ZONE = 'UTC'
 

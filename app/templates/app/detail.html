@@ -1,6 +1,6 @@
 {% extends "app/base.html" %}
 {% load static %}
-
+{% load humanize %}
 {% block detail %}
 {% for product in products %}
 <div class="container mt-5 mb-5">
@@ -32,8 +32,7 @@
 
                             <!-- Giá -->
                             <div class="price d-flex flex-row align-items-center">
-                                <h4 class="text-danger mr-3">{{ product.price|floatformat:0 }} ₫</h4>
-                                <span class="text-muted"><del>{{ product.original_price|default:product.price|add:5000000|floatformat:0 }} ₫</del></span>
+                                <h4 class="text-danger mr-3">{{ product.price|floatformat:0 }} VND</h4>
                             </div>
 
                             <!-- Ưu đãi -->

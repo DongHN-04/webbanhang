@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+import re
 # Create your models here.
 
 class Category(models.Model):
@@ -15,6 +17,45 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
+        labels = {
+            'username': 'Tên đăng nhập',
+            'email': 'Email',
+            'first_name': 'Họ',
+            'last_name': 'Tên',
+            'password1': 'Mật khẩu',
+            'password2': 'Nhập lại mật khẩu',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exists():
+            raise ValidationError("Tên đăng nhập đã tồn tại.")
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("Email này đã được sử dụng.")
+        return email
+
+    def clean_password1(self):
+        password = self.cleaned_data.get('password1')
+        if len(password) < 8:
+            raise ValidationError("Mật khẩu phải có ít nhất 8 ký tự.")
+        if not re.search(r'[A-Z]', password):
+            raise ValidationError("Mật khẩu phải chứa ít nhất một chữ cái viết hoa.")
+        if not re.search(r'[a-z]', password):
+            raise ValidationError("Mật khẩu phải chứa ít nhất một chữ cái viết thường.")
+        if not re.search(r'\d', password):
+            raise ValidationError("Mật khẩu phải chứa ít nhất một chữ số.")
+        if not re.search(r'[^\w\s]', password):
+            raise ValidationError("Mật khẩu phải chứa ít nhất một ký tự đặc biệt.")
+        return password
  
 class Product(models.Model):
     category = models.ManyToManyField(Category, related_name='product')
