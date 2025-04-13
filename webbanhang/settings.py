@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'webbanhang.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'python',  
+        'NAME': 'python_web',  
         'USER': 'root',
-        'PASSWORD': '', 
+        'PASSWORD': '070704', 
         'HOST': 'localhost',
         'PORT': '3306',
     }

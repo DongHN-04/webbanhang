@@ -1,39 +1,75 @@
 {% extends "app/base.html" %}
 {% load static %}
+
 {% block detail %}
-    {% for product in products %}
-    <div class="container mt-5 mb-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-10">
-                <div class="card">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="images p-3">
-                                <div class="text-center p-4"> <img id="main-image" src="{{product.ImageURL}}" width="250" /> </div>
+{% for product in products %}
+<div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="card p-4">
+                <div class="row">
+                    <!-- Hình ảnh sản phẩm -->
+                    <div class="col-md-6">
+                        <div class="images p-3">
+                            <div class="text-center p-4 border rounded bg-light">
+                                <img id="main-image" src="{{ product.ImageURL }}" width="100%" style="max-height: 400px; object-fit: contain;" />
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="product p-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex align-items-center"> <i class="fa fa-long-arrow-left"></i> <span class="ml-1"><a href="{% url 'home' %}">Back</a></span> </div> 
-                                    <i class="fa fa-shopping-cart text-muted"></i>
+                    </div>
+
+                    <!-- Thông tin sản phẩm -->
+                    <div class="col-md-6">
+                        <div class="product p-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-long-arrow-left"></i>
+                                    <span class="ml-2"><a href="{% url 'home' %}">Back</a></span>
                                 </div>
-                                <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">Orianz</span>
-                                    <h5 class="text-uppercase">{{product.name}}</h5>
-                                    <div class="price d-flex flex-row align-items-center"> <span class="act-price">{{product.price}} VND</span>
-                                    </div>
-                                </div>
-                                <p class="about">{{product.detail}}</p>
-                                <div class="cart mt-4 align-items-center">
-                                    <button data-product={{product.id}} data-action= "add" class="btn btn-danger text-uppercase mr-2 px-4 add-btn update-cart">Thêm vào giỏ hàng</button> 
-                                    <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> 
-                                </div>
+                                <i class="fa fa-shopping-cart text-muted"></i>
+                            </div>
+
+                            <h5 class="text-uppercase mt-4">{{ product.name }}</h5>
+
+                            <!-- Giá -->
+                            <div class="price d-flex flex-row align-items-center">
+                                <h4 class="text-danger mr-3">{{ product.price|floatformat:0 }} ₫</h4>
+                                <span class="text-muted"><del>{{ product.original_price|default:product.price|add:5000000|floatformat:0 }} ₫</del></span>
+                            </div>
+
+                            <!-- Ưu đãi -->
+                            <div class="mt-3">
+                                <ul class="list-unstyled small text-muted">
+                                    <li>🎁 Ưu đãi độc quyền: Giảm thêm khi đổi máy cũ</li>
+                                    <li>💳 Trả góp 0% lãi suất</li>
+                                    <li>🎧 Giảm giá khi mua kèm phụ kiện</li>
+                                </ul>
+                            </div>
+
+                            <!-- Button -->
+                            <div class="cart mt-4 align-items-center">
+                                <button data-product="{{ product.id }}" data-action="add" class="btn btn-danger text-uppercase px-4 update-cart add-btn">
+                                    Thêm vào giỏ hàng
+                                </button>
+                                <i class="fa fa-heart text-muted ml-3"></i>
+                                <i class="fa fa-share-alt text-muted ml-2"></i>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Mô tả sản phẩm -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="border-top pt-3">
+                            <h6 class="text-uppercase text-muted">Mô tả sản phẩm</h6>
+                            <p class="about">{{ product.detail }}</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-    {% endfor %}
+</div>
+{% endfor %}
 {% endblock detail %}
