@@ -7,9 +7,7 @@
     <div class="col-lg-9">
         <!-- Nút quay lại giỏ hàng -->
         <div style="margin-bottom: 20px;">
-            <a class="btn btn-outline-dark" href="{% url 'cart' %}" style="text-decoration: none; color: black;">
-                ← Tiếp tục mua hàng
-            </a>
+            <a  class="btn btn-outline-secondary" href="{% url 'cart' %}">&larr; Tiếp tục mua hàng</a>
         </div>
 
         <!-- Form bao quanh tất cả các phần để gửi dữ liệu -->
@@ -28,7 +26,7 @@
                         <p style="margin: 0;">{{item.product.name}}</p>
                     </div>
                     <div style="flex: 1;">
-                        <p style="margin: 0;">{{item.product.price}} đ</p>
+                        <p style="margin: 0;">{{item.product.price|floatformat:0|intcomma}} VND</p>
                     </div>
                     <div style="flex: 1; text-align: center;">
                         <p style="margin: 0;">x{{item.quantity}}</p>
@@ -43,10 +41,10 @@
                     <input required class="form-control" type="text" name="name" placeholder="Họ và tên *" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
                 </div>
                 <div class="form-field" style="margin-bottom: 15px;">
-                    <input required class="form-control" type="text" name="phone" placeholder="Số điện thoại *" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <input required class="form-control" type="text" name="mobile" placeholder="Số điện thoại *" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
                 </div>
 				<div class="form-field" style="margin-bottom: 15px;">
-                    <input required class="form-control" type="text" name="phone" placeholder="Email *" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <input required class="form-control" type="email" name="email" placeholder="Email *" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
                 </div>
 
                 <!-- Hình thức giao hàng -->
@@ -65,32 +63,32 @@
                     <div class="form-field" style="margin-bottom: 15px;">
                         <select class="form-control" name="city" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
                             <option value="">Thành phố</option>
-                            <option value="">Hà Nội</option>
-                            <option value="">Hồ Chí Minh</option>
-                            <option value="">Bắc Ninh</option>
-                            <option value="">Bắc Giang</option>
-                            <option value="">Quảng Ninh</option>
-                            <option value="">Hải Phòng</option>
-                            <option value="">Nghệ An</option>
+                            <option >Hà Nội</option>
+                            <option >Hồ Chí Minh</option>
+                            <option >Bắc Ninh</option>
+                            <option >Bắc Giang</option>
+                            <option >Quảng Ninh</option>
+                            <option >Hải Phòng</option>
+                            <option >Nghệ An</option>
                             <!-- Thêm các thành phố khác nếu cần -->
                         </select>
                     </div>
                     <div class="form-field" style="margin-bottom: 15px;">
-                        <select class="form-control" name="district" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <select class="form-control" name="state" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
                             <option value="">Quận / huyện</option>
-							<option value="">Hoàng Mai</option>
-							<option value="">Thanh Xuân</option>
-							<option value="">Quế Võ</option>
-							<option value="">Gia Bình</option>
-							<option value="">Lương Tài</option>
-							<option value="">Ba Đình</option>
-							<option value="">Sóc Sơn</option>
+							<option >Hoàng Mai</option>
+							<option >Thanh Xuân</option>
+							<option >Quế Võ</option>
+							<option >Gia Bình</option>
+							<option >Lương Tài</option>
+							<option >Ba Đình</option>
+							<option >Sóc Sơn</option>
 
                             <!-- Thêm các quận/huyện nếu cần -->
                         </select>
                     </div>
                     <div class="form-field" style="margin-bottom: 15px;">
-                        <input class="form-control" type="text" name="address" placeholder="Tìm địa chỉ cửa hàng" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <input class="form-control" type="text" name="address" placeholder="Địa chỉ giao hàng" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
                     </div>
                 </div>
             </div>
@@ -127,24 +125,16 @@
             <hr style="border-top: 1px solid #ddd;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                 <p style="margin: 0;">Tiền hàng:</p>
-                <p style="margin: 0;">{{order.get_cart_total}} đ</p>
+                <p style="margin: 0;">{{order.get_cart_total|floatformat:0|intcomma}} VND</p>
             </div>
             <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                 <p style="margin: 0;">Phí vận chuyển:</p>
                 <p style="margin: 0;">Miễn phí</p>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                <p style="margin: 0;">Khuyến mãi:</p>
-                <p style="margin: 0;">0 đ</p>
-            </div>
-            <div style="margin-bottom: 10px;">
-                <input type="text" placeholder="Nhập mã khuyến mãi" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-                <button style="background-color: #dc3545; color: white; border: none; padding: 10px; border-radius: 5px; width: 100%; margin-top: 10px;">Áp dụng</button>
-            </div>
             <hr style="border-top: 1px solid #ddd;">
             <div style="display: flex; justify-content: space-between; font-weight: bold;">
                 <p style="margin: 0;">Tổng cộng:</p>
-                <p style="margin: 0;">{{order.get_cart_total}} đ</p>
+                <p style="margin: 0;">{{order.get_cart_total|floatformat:0|intcomma}} VND</p>
             </div>
             <p style="color: green; font-size: 12px; margin-top: 10px;">
                 ✔ Bằng việc tiến hành đặt mua hàng, bạn đồng ý với Điều Khoản sử dụng và Chính sách xử lý dữ liệu cá nhân của Điện Máy Việt.

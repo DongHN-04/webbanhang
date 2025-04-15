@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 import re
+from django.utils import timezone
 # Create your models here.
 
 class Category(models.Model):
@@ -64,6 +65,7 @@ class Product(models.Model):
     digital = models.BooleanField(default=False,null=True,blank=False)
     image = models.ImageField(null=True,blank=True)
     detail = models.TextField(null=True,blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.name

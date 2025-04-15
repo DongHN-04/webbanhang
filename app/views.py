@@ -47,11 +47,24 @@ def detail(request):
     return render(request, 'app/detail.html', context)
 
 def category(request):
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer = customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+        user_not_login = "hidden"
+        user_login = "show"
+    else:
+        items = []
+        order = {'get_cart_items':0, 'get_cart_total':0}
+        cartItems = order["get_cart_items"]
+        user_not_login = "show"
+        user_login = "hidden"
     categories = Category.objects.filter(is_sub=False)
     active_category = request.GET.get('category','')
     if active_category:
-        products = Product.objects.filter(category__slug = active_category)
-    context = {'categories': categories, 'active_category': active_category, 'products': products}
+        products = Product.objects.filter(category__slug = active_category).order_by('-created_at')
+    context = {'categories': categories, 'active_category': active_category, 'products': products, 'items': items, 'order': order, 'cartItems':cartItems,'user_not_login':user_not_login, 'user_login':user_login}
     return render(request, 'app/category.html', context)
 
 def search(request):
@@ -67,7 +80,7 @@ def search(request):
         items = []
         order = {'get_cart_items':0, 'get_cart_total':0}
         cartItems = order["get_cart_items"]
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('-created_at')
     categories = Category.objects.filter(is_sub=False)
     return render(request,'app/search.html', {'categories': categories,"searched":searched, "keys":keys, 'products':products, 'cartItems':cartItems})
 
@@ -123,9 +136,14 @@ def home(request):
         cartItems = order["get_cart_items"]
         user_not_login = "show"
         user_login = "hidden"
+
+    products = Product.objects.all().order_by('-created_at')
     categories = Category.objects.filter(is_sub=False)
-    products = Product.objects.all()
-    context = {'categories': categories, 'products':products, 'cartItems':cartItems,'user_not_login':user_not_login, 'user_login':user_login}
+    products_by_category = {}
+    for category in categories:
+        productlist = category.product.order_by('-created_at')[:5]  # lấy tối đa 5 sản phẩm
+        products_by_category[category] = productlist
+    context = {'products_by_category':products_by_category, 'categories': categories, 'products':products, 'cartItems':cartItems,'user_not_login':user_not_login, 'user_login':user_login}
     return render(request, 'app/home.html',context)
 
 def cart(request):
@@ -165,7 +183,7 @@ def checkout(request):
             address = request.POST.get('address')
             city = request.POST.get('city')
             state = request.POST.get('state')
-            mobile = request.POST.get('SDT')
+            mobile = request.POST.get('mobile')
 
             # Lưu shipping info
             ShippingAddress.objects.create(

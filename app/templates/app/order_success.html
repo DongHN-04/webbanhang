@@ -87,13 +87,13 @@
                 <p>{{item.product.name}}</p>
                 <p>Số lượng: {{item.quantity}}</p>
             </div>
-            <div class="price">{{item.product.price}} đ</div>
+            <div class="price">{{item.product.price|floatformat:0|intcomma}} VND</div>
         </div>
         {% endfor %}
         <hr>
         <div class="order-total">
             <p>Tổng sản phẩm: {{order.get_cart_items}}</p>
-            <p class="price">Tổng tiền: {{order.get_cart_total}} đ</p>
+            <p class="price">Tổng tiền: {{order.get_cart_total|floatformat:0|intcomma}} VND</p>
         </div>
         <a href="/" class="btn-back">&#x2190; Quay lại trang chủ</a>
     </div>

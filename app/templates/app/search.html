@@ -2,20 +2,37 @@
 {% load static %}
 {% load humanize %}
 {% block search %}
-  <h5>Kết quả tìm kiếm {{searched}}</h5>
-  <br/>
-  <div class="row" style="width:100%">
-      {%for product in keys%}
-      <div class="col-lg-4">
-        <img class="thumbnail" src="{{product.ImageURL}}">
-        <div class="box-element product">
-          <h6><strong>{{product.name}}</strong></h6>
-          <hr>
-          <button data-product={{product.id}} data-action= "add" class="btn btn-outline-secondary add-btn update-cart">Thêm vào giỏ hàng</button>
-          <a class="btn btn-outline-success" href="{% url 'detail' %}?id={{product.id}}">Xem</a>
-          <h3 style="display: inline-block; float: right"><strong>{{product.price}}VND</strong></h3>
-        </div>
+  <div class="container mt-5">
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
+      {% for product in keys %}
+      <div class="col">
+        <a href="{% url 'detail' %}?id={{ product.id }}" class="text-decoration-none">
+          <div class="card h-100 shadow-sm border position-relative product-card rounded-3 hover-shadow">
+            <!-- Badge Trả góp 0% -->
+            <span class="badge fw-bold position-absolute top-0 start-0 m-2"
+                  style="background-color: #5bc0de;">
+              TRẢ GÓP 0%
+            </span>
+            <!-- Product Image -->
+            <img src="{{ product.ImageURL }}"
+                class="card-img-top img-fluid"
+                alt="{{ product.name }}"
+                style="height: 200px; object-fit: contain; padding: 20px; margin-top: 40px;">
+            <!-- Product Content -->
+            <div class="card-body">
+              <h6 class="card-title text-truncate" title="{{ product.name }}">
+                {{ product.name }}
+              </h6>
+              <!-- Hiển thị giá bằng tiếng Việt -->
+              <p class="card-text fw-bold text-danger mb-1">
+                {{ product.price|floatformat:0|intcomma }} VND
+              </p>
+              <small class="text-muted">Cam kết 0 lãi, 0 phí phát sinh</small>
+            </div>
+          </div>
+        </a>
       </div>
       {% endfor %}
     </div>
+  </div>
 {% endblock search %}
