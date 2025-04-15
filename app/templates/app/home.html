@@ -1,6 +1,7 @@
 {% extends "app/base.html" %}
 {% load static %}
 {% load humanize %}
+
 {% block banner_slider %}
   <div class="container mt-4">
     <div class="row">
@@ -62,8 +63,8 @@
         </div>
     </div>
   </div>
-
 {% endblock banner_slider %}
+
 {% block main-content %}
 <div class="container mt-4">
   <div class="p-3 rounded shadow-sm" style="background-color: #e3f2fd;">
@@ -82,19 +83,16 @@
             <li class="splide__slide">
               <a href="{% url 'detail' %}?id={{ product.id }}" class="text-decoration-none">
                 <div class="card h-100 shadow-sm border position-relative product-card rounded-3 hover-shadow">
-                  
                   <!-- Badge Trả góp 0% -->
                   <span class="badge fw-bold position-absolute top-0 start-0 m-2"
                         style="background-color: #5bc0de;">
                     TRẢ GÓP 0%
                   </span>
-
                   <!-- Product Image -->
                   <img src="{{ product.ImageURL }}"
                       class="card-img-top img-fluid"
                       alt="{{ product.name }}"
-                      style="height: 200px; object-fit: contain; padding: 20px; margin-top: 40px;">  <!-- Đẩy ảnh xuống dưới -->
-
+                      style="height: 200px; object-fit: contain; padding: 20px; margin-top: 40px;">
                   <!-- Product Content -->
                   <div class="card-body">
                     <h6 class="card-title text-truncate" title="{{ product.name }}">
@@ -117,21 +115,165 @@
   </div>
 </div>
 
-<div class="container mt-5">
-  <div class="row">
-    {% for product in products %}
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm">
-          <a href="{% url 'detail' %}?id={{ product.id }}" style="text-decoration: none; color: inherit;">
-            <img src="{{ product.ImageURL }}" class="card-img-top" alt="{{ product.name }}" style="height: 240px; object-fit: contain;">
-            <div class="card-body">
-              <h6 class="card-title">{{ product.name }}</h6>
-              <p class="card-text text-danger fw-bold">{{ product.price|floatformat:0|intcomma }}₫</p>
+<div class="container mt-4">
+  <!-- iPhone Section with Outer Frame -->
+  <div class="mt-4 p-3 rounded shadow-sm" style="background-color: #e3f2fd;">
+    <div class="border rounded p-4" style="background-color: #ffffff;">
+      <h2 class="fs-3 fw-bold mb-4">IPhone</h2>
+      <div class="row">
+        {% for product in iphone_products %}
+          <div class="col flex-fill mb-4" style="flex: 0 0 20%; max-width: 20%;">
+            <div class="card h-100 shadow-sm text-center">
+              <a href="{% url 'detail' %}?id={{ product.id }}" style="text-decoration: none; color: inherit;">
+                <img src="{{ product.ImageURL }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: contain; padding: 20px;">
+                <div class="card-body">
+                  <h6 class="card-title">{{ product.name }}</h6>
+                  {% if product.discount %}
+                    <span class="badge bg-danger text-white mb-2">[-{{ product.discount }}%]</span>
+                  {% endif %}
+                  <p class="card-text text-danger fw-bold">{{ product.price|floatformat:0|intcomma }}₫</p>
+                  {% if product.original_price %}
+                    <p class="text-muted text-decoration-line-through">{{ product.original_price|floatformat:0|intcomma }}₫</p>
+                  {% endif %}
+                </div>
+              </a>
             </div>
-          </a>
-        </div>
+          </div>
+        {% empty %}
+          <div class="col-12">
+            <p class="text-muted text-center">Không có sản phẩm nào trong danh mục này.</p>
+          </div>
+        {% endfor %}
       </div>
-    {% endfor %}
+    </div>
+  </div>
+
+  <!-- Samsung Section with Outer Frame -->
+  <div class="mt-4 p-3 rounded shadow-sm" style="background-color: #e3f2fd;">
+    <div class="border rounded p-4" style="background-color: #ffffff;">
+      <h2 class="fs-3 fw-bold mb-4">Samsung</h2>
+      <div class="row">
+        {% for product in samsung_products %}
+          <div class="col flex-fill mb-4" style="flex: 0 0 20%; max-width: 20%;">
+            <div class="card h-100 shadow-sm text-center">
+              <a href="{% url 'detail' %}?id={{ product.id }}" style="text-decoration: none; color: inherit;">
+                <img src="{{ product.ImageURL }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: contain; padding: 20px;">
+                <div class="card-body">
+                  <h6 class="card-title">{{ product.name }}</h6>
+                  {% if product.discount %}
+                    <span class="badge bg-danger text-white mb-2">[-{{ product.discount }}%]</span>
+                  {% endif %}
+                  <p class="card-text text-danger fw-bold">{{ product.price|floatformat:0|intcomma }}₫</p>
+                  {% if product.original_price %}
+                    <p class="text-muted text-decoration-line-through">{{ product.original_price|floatformat:0|intcomma }}₫</p>
+                  {% endif %}
+                </div>
+              </a>
+            </div>
+          </div>
+        {% empty %}
+          <div class="col-12">
+            <p class="text-muted text-center">Không có sản phẩm nào trong danh mục này.</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- OPPO Section with Outer Frame -->
+  <div class="mt-4 p-3 rounded shadow-sm" style="background-color: #e3f2fd;">
+    <div class="border rounded p-4" style="background-color: #ffffff;">
+      <h2 class="fs-3 fw-bold mb-4">OPPO</h2>
+      <div class="row">
+        {% for product in oppo_products %}
+          <div class="col flex-fill mb-4" style="flex: 0 0 20%; max-width: 20%;">
+            <div class="card h-100 shadow-sm text-center">
+              <a href="{% url 'detail' %}?id={{ product.id }}" style="text-decoration: none; color: inherit;">
+                <img src="{{ product.ImageURL }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: contain; padding: 20px;">
+                <div class="card-body">
+                  <h6 class="card-title">{{ product.name }}</h6>
+                  {% if product.discount %}
+                    <span class="badge bg-danger text-white mb-2">[-{{ product.discount }}%]</span>
+                  {% endif %}
+                  <p class="card-text text-danger fw-bold">{{ product.price|floatformat:0|intcomma }}₫</p>
+                  {% if product.original_price %}
+                    <p class="text-muted text-decoration-line-through">{{ product.original_price|floatformat:0|intcomma }}₫</p>
+                  {% endif %}
+                </div>
+              </a>
+            </div>
+          </div>
+        {% empty %}
+          <div class="col-12">
+            <p class="text-muted text-center">Không có sản phẩm nào trong danh mục này.</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Xiaomi Section with Outer Frame -->
+  <div class="mt-4 p-3 rounded shadow-sm" style="background-color: #e3f2fd;">
+    <div class="border rounded p-4" style="background-color: #ffffff;">
+      <h2 class="fs-3 fw-bold mb-4">Xiaomi</h2>
+      <div class="row">
+        {% for product in xiaomi_products %}
+          <div class="col flex-fill mb-4" style="flex: 0 0 20%; max-width: 20%;">
+            <div class="card h-100 shadow-sm text-center">
+              <a href="{% url 'detail' %}?id={{ product.id }}" style="text-decoration: none; color: inherit;">
+                <img src="{{ product.ImageURL }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: contain; padding: 20px;">
+                <div class="card-body">
+                  <h6 class="card-title">{{ product.name }}</h6>
+                  {% if product.discount %}
+                    <span class="badge bg-danger text-white mb-2">[-{{ product.discount }}%]</span>
+                  {% endif %}
+                  <p class="card-text text-danger fw-bold">{{ product.price|floatformat:0|intcomma }}₫</p>
+                  {% if product.original_price %}
+                    <p class="text-muted text-decoration-line-through">{{ product.original_price|floatformat:0|intcomma }}₫</p>
+                  {% endif %}
+                </div>
+              </a>
+            </div>
+          </div>
+        {% empty %}
+          <div class="col-12">
+            <p class="text-muted text-center">Không có sản phẩm nào trong danh mục này.</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Vivo Section with Outer Frame -->
+  <div class="mt-4 p-3 rounded shadow-sm" style="background-color: #e3f2fd;">
+    <div class="border rounded p-4" style="background-color: #ffffff;">
+      <h2 class="fs-3 fw-bold mb-4">Vivo</h2>
+      <div class="row">
+        {% for product in vivo_products %}
+          <div class="col flex-fill mb-4" style="flex: 0 0 20%; max-width: 20%;">
+            <div class="card h-100 shadow-sm text-center">
+              <a href="{% url 'detail' %}?id={{ product.id }}" style="text-decoration: none; color: inherit;">
+                <img src="{{ product.ImageURL }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: contain; padding: 20px;">
+                <div class="card-body">
+                  <h6 class="card-title">{{ product.name }}</h6>
+                  {% if product.discount %}
+                    <span class="badge bg-danger text-white mb-2">[-{{ product.discount }}%]</span>
+                  {% endif %}
+                  <p class="card-text text-danger fw-bold">{{ product.price|floatformat:0|intcomma }}₫</p>
+                  {% if product.original_price %}
+                    <p class="text-muted text-decoration-line-through">{{ product.original_price|floatformat:0|intcomma }}₫</p>
+                  {% endif %}
+                </div>
+              </a>
+            </div>
+          </div>
+        {% empty %}
+          <div class="col-12">
+            <p class="text-muted text-center">Không có sản phẩm nào trong danh mục này.</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </div>
 <br><br><br>
