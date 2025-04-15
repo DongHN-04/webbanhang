@@ -1,6 +1,7 @@
 {% extends "app/base.html" %}
 {% load static %}
 {% load humanize %}
+
 {% block banner_slider %}
   <div class="container mt-4">
     <div class="row">
@@ -62,8 +63,8 @@
         </div>
     </div>
   </div>
-
 {% endblock banner_slider %}
+
 {% block main-content %}
 <div class="container mt-4">
   <div class="p-3 rounded shadow-sm" style="background-color: #e3f2fd;">
@@ -82,19 +83,16 @@
             <li class="splide__slide">
               <a href="{% url 'detail' %}?id={{ product.id }}" class="text-decoration-none">
                 <div class="card h-100 shadow-sm border position-relative product-card rounded-3 hover-shadow">
-                  
                   <!-- Badge Trả góp 0% -->
                   <span class="badge fw-bold position-absolute top-0 start-0 m-2"
                         style="background-color: #5bc0de;">
                     TRẢ GÓP 0%
                   </span>
-
                   <!-- Product Image -->
                   <img src="{{ product.ImageURL }}"
                       class="card-img-top img-fluid"
                       alt="{{ product.name }}"
-                      style="height: 200px; object-fit: contain; padding: 20px; margin-top: 40px;">  <!-- Đẩy ảnh xuống dưới -->
-
+                      style="height: 200px; object-fit: contain; padding: 20px; margin-top: 40px;">
                   <!-- Product Content -->
                   <div class="card-body">
                     <h6 class="card-title text-truncate" title="{{ product.name }}">
@@ -126,7 +124,7 @@
             <img src="{{ product.ImageURL }}" class="card-img-top" alt="{{ product.name }}" style="height: 240px; object-fit: contain;">
             <div class="card-body">
               <h6 class="card-title">{{ product.name }}</h6>
-              <p class="card-text text-danger fw-bold">{{ product.price|floatformat:0|intcomma }} VND</p>
+              <p class="card-text text-danger fw-bold">{{ product.price|floatformat:0|intcomma }}₫</p>
             </div>
           </a>
         </div>
